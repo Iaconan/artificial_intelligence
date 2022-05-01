@@ -7,6 +7,7 @@ const alanKey = '0c68797b5fc4c5a1e42c1b61a1935bf12e956eca572e1d8b807a3e2338fdd0d
 
 const App = () => {
     const [newsArticles, setNewsArticles] = useState([]);
+    const [activeArticle, setActiveArticle] = useState(-1);
 
     const classes = useStyles();
 
@@ -16,6 +17,9 @@ const App = () => {
             onCommand: ({ command, articles }) => {
                 if (command === 'newHeadlines') {
                     setNewsArticles(articles);
+                    setActiveArticle(-1)
+                } else if (command ==='highlight') {
+                    setActiveArticle((prevActiveArticle) => prevActiveArticle + 1)
                 }
             }
         })
@@ -26,7 +30,7 @@ const App = () => {
             <div className={classes.logoContainer}>
                 <img src="https://alan.app/voice/images/previews/preview.jpg" className={classes.alanLogo} alt="logo"></img>
             </div>
-            <NewsCards articles={newsArticles} />
+            <NewsCards articles={newsArticles} activeArticle={activeArticle}/>
         </div>
     )
 }
